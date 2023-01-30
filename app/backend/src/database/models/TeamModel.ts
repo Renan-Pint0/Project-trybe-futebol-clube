@@ -16,11 +16,12 @@ Teams.init({
   teamName: {
     allowNull: false,
     type: STRING,
+    field: 'team_name',
   },
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'teams',
+  tableName: 'teams',
   timestamps: false,
 });
 

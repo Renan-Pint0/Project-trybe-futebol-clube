@@ -5,5 +5,6 @@ import userValidation from '../middlewares/userValidation';
 const router = Router();
 
 router.post('/', userValidation, userController.getByEmail);
+router.get('/validate', userController.verifyToken);
 
 export default router;

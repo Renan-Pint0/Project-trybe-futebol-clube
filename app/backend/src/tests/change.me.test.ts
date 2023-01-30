@@ -24,10 +24,21 @@ describe('Test the "/login" route', () => {
       }
     )
     expect(user.status).to.be.eq(200)
-    expect(user.body).to.be.deep.eq(
+    expect(user.body).to.deep.eq(
       {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjU0NTI3MTg5fQ.XS_9AA82iNoiVaASi0NtJpqOQ_gHSHhxrpIdigiT-fc" // Aqui deve ser o token gerado pelo backend.
+        token: "string" 
       }
+    );
+  });
+  it('Failed with no email', async () => {
+    const user = await chai.request(app).post('/login').send(
+      {
+        "password": "string"
+      }
+    )
+    expect(user.status).to.be.eq(400)
+    expect(user.body).to.be.deep.eq(
+      { message: 'All fields must be filled' }
     );
   });
 });

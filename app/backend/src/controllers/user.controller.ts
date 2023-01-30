@@ -25,4 +25,16 @@ const getByEmail = async (req: Request, res: Response) => {
   res.status(200).json({ token });
 };
 
-export default { getByEmail };
+const verifyToken = async (req: Request, res: Response) => {
+  const { email } = req.body;
+  const { authorization: token } = req.headers;
+
+  const tokenVerify = jwt.verify(token as string, secret as string);
+
+  if (tokenVerify) {
+    const user = await userService.getByEmail(email);
+    res.status(200).json(user.role);
+  }
+};
+
+export default { getByEmail, verifyToken };

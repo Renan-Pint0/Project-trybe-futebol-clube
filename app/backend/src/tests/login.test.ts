@@ -18,8 +18,8 @@ describe('Test the "/login" route', () => {
   it('With sucess', async () => {
     const user = await chai.request(app).post('/login').send(
       {
-        "email": "string",
-        "password": "string"
+        email: "string",
+        password: "string"
       }
     )
     expect(user.status).to.be.eq(200)

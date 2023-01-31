@@ -33,7 +33,7 @@ const verifyToken = async (req: Request, res: Response) => {
 
   if (tokenVerify) {
     const user = await userService.getByEmail(email);
-    res.status(200).json(user.role);
+    res.status(200).json({ role: user.role });
   }
 };
 

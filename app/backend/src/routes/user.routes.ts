@@ -2,9 +2,9 @@ import { Router } from 'express';
 import userController from '../controllers/user.controller';
 import userValidation from '../middlewares/userValidation';
 
-const router = Router();
+const userRouter = Router();
 
-router.post('/', userValidation, userController.getByEmail);
-router.get('/validate', userController.verifyToken);
+userRouter.post('/', userValidation, userController.getByEmail);
+userRouter.get('/validate', userController.verifyToken);
 
-export default router;
+export default userRouter;

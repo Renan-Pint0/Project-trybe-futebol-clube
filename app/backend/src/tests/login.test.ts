@@ -7,7 +7,6 @@ import { app } from '../app';
 import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
-import { login } from './mockData';
 import userController from '../controllers/user.controller';
 
 chai.use(chaiHttp);

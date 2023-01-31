@@ -9,4 +9,9 @@ interface iUser extends iLogin {
   role: string;
 }
 
-export { iLogin, iUser };
+interface iTeams {
+  id?: number;
+  teamName: string;
+}
+
+export { iLogin, iUser, iTeams };

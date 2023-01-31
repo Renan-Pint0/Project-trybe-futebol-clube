@@ -6,4 +6,11 @@ const getAll = async (req: Request, res: Response) => {
   res.status(200).json(result);
 };
 
-export default { getAll };
+const getById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const idResult = Number(id);
+  const result = await teamsService.getById(idResult);
+  res.status(200).json(result);
+};
+
+export default { getAll, getById };

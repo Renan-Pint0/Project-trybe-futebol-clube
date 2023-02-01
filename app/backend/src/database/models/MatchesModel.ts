@@ -8,26 +8,20 @@ class Matches extends Model {
   declare homeTeamGoals: number;
   declare awayTeamId: number;
   declare awayTeamGoals: number;
-  declare inProgress: number;
+  declare inProgress: boolean;
 }
 
 Matches.init({
   id: {
+    type: INTEGER,
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: INTEGER,
   },
   homeTeamId: {
     type: INTEGER,
     allowNull: false,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
     field: 'home_team_id',
-    references: {
-      model: 'teams',
-      key: 'id',
-    },
   },
   homeTeamGoals: {
     allowNull: false,
@@ -37,13 +31,7 @@ Matches.init({
   awayTeamId: {
     type: INTEGER,
     allowNull: false,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
     field: 'away_team_id',
-    references: {
-      model: 'teams',
-      key: 'id',
-    },
   },
   awayTeamGoals: {
     allowNull: false,
@@ -61,9 +49,10 @@ Matches.init({
   timestamps: false,
 });
 
-Matches.belongsTo(Teams, { foreignKey: 'homeTeamId' as 'homeTeam' });
-Matches.belongsTo(Teams, { foreignKey: 'awayTeamId' as 'awayTeam' });
+Teams.hasMany(Matches, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+Teams.hasMany(Matches, { foreignKey: 'awayTeamId', as: 'awayTeam' });
 
-Teams.hasMany(Matches);
+Matches.belongsTo(Teams, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+Matches.belongsTo(Teams, { foreignKey: 'awayTeamId', as: 'awayTeam' });
 
 export default Matches;

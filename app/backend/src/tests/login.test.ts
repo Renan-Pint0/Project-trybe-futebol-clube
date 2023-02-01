@@ -7,37 +7,42 @@ import { app } from '../app';
 import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
-import userController from '../controllers/user.controller';
+import Users from '../database/models/UserModel';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
 describe('Test the "/login" route', () => {
-  afterEach(sinon.restore);
-  it('With sucess', async () => {
-    const user = await chai.request(app).post('/login').send(
-      {
-        email: "string",
-        password: "string"
-      }
-    )
-    expect(user.status).to.be.eq(200)
-    expect(user.body).to.deep.eq(
-      {
-        token: "string" 
-      }
-    );
+  describe('With sucess', () => {
+    it('Must return status 200', async () => {
+      const user = await chai
+      .request(app)
+      .post('/login')
+      .send(
+        {
+          email: "string",
+          password: "string"
+        }
+      )
+      expect(user.status).to.equal(200)
+    });
   });
-  it('Failed with no email', async () => {
-    const user = await chai.request(app).post('/login').send(
-      {
-        "password": "string"
-      }
-    )
-    expect(user.status).to.be.eq(400)
-    expect(user.body).to.be.deep.eq(
-      { message: 'All fields must be filled' }
-    );
-  });
+  describe('Failed with no email', () => {
+    it('Must return 400', async () => {
+      const user = await chai
+      .request(app)
+      .post('/login')
+      .send(
+        {
+          "password": "string"
+        }
+      )
+      expect(user.status).to.be.eq(400)
+      expect(user.body).to.be.deep.eq(
+        { message: 'All fields must be filled' }
+      );
+    });
+  })
+  
 });

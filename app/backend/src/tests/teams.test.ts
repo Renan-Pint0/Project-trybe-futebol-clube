@@ -13,16 +13,14 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Test the "/teams" route', () => {
-  afterEach(sinon.restore);
-  it('"/" With sucess', async () => {
-    const user = await chai.request(app).get('/teams')
-    expect(user.status).to.be.eq(200)
-    // expect(user.body).to.deep.eq(
-    //   {
-    //     token: "string" 
-    //   }
-    // );
-  });
+  describe('"/" With sucess', () => {
+    it('return 200', async () => {
+      const user = await chai
+      .request(app)
+      .get('/teams')
+      expect(user.status).to.equal(200)
+    });
+  })
   it('"/:id" With sucess', async () => {
     const user = await chai.request(app).get('/teams/:id')
     expect(user.status).to.be.eq(200)

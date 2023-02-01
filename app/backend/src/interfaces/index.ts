@@ -14,4 +14,13 @@ interface iTeams {
   teamName: string;
 }
 
-export { iLogin, iUser, iTeams };
+interface iMatches {
+  id?: number;
+  homeTeamId: number;
+  homeTeamGoals: number;
+  awayTeamId: number;
+  awayTeamGoals: number;
+  inProgress: boolean;
+}
+
+export { iLogin, iUser, iTeams, iMatches };

@@ -20,7 +20,7 @@ interface iMatches {
   homeTeamGoals: number;
   awayTeamId: number;
   awayTeamGoals: number;
-  inProgress: boolean;
+  inProgress?: boolean;
 }
 
 export { iLogin, iUser, iTeams, iMatches };

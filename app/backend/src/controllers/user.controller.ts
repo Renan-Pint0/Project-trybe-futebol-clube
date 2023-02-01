@@ -26,15 +26,10 @@ const getByEmail = async (req: Request, res: Response) => {
 };
 
 const verifyToken = async (req: Request, res: Response) => {
-  const { email } = req.body;
-  const { authorization: token } = req.headers;
-
-  const tokenVerify = jwt.verify(token as string, secret as string);
-
-  if (tokenVerify) {
-    const user = await userService.getByEmail(email);
-    res.status(200).json({ role: user.role });
-  }
+  const { id } = req.body.user;
+  const user = await userService.getById(Number(id));
+  if (!user) return res.status(404).json({ message: 'User not found' });
+  return res.status(200).json({ role: user.role });
 };
 
 export default { getByEmail, verifyToken };

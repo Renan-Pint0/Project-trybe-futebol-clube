@@ -1,4 +1,4 @@
-// import { iMatches } from '../interfaces';
+import { iMatches } from '../interfaces';
 import Matches from '../database/models/MatchesModel';
 import Teams from '../database/models/TeamModel';
 
@@ -14,4 +14,15 @@ const getAll = async (inProgress?: string) => {
   return result.filter((res) => res.inProgress.toString() === inProgress);
 };
 
-export default { getAll };
+const newMatch = async (body: iMatches): Promise<iMatches> => {
+  const match = await Matches.create({
+    homeTeamId: body.homeTeamId,
+    homeTeamGoals: body.homeTeamGoals,
+    awayTeamId: body.awayTeamId,
+    awayTeamGoals: body.awayTeamGoals,
+    inProgesse: true,
+  });
+  return match;
+};
+
+export default { getAll, newMatch };

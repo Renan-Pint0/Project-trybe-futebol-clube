@@ -17,7 +17,6 @@ Teams.init({
   teamName: {
     allowNull: false,
     type: STRING,
-    field: 'team_name',
   },
 }, {
   underscored: true,

@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import { tokenValidation } from '../middlewares/userValidation';
+import matchtokenValidation from '../middlewares/matchesValidation';
 import matchesController from '../controllers/matches.controller';
 
 const matchesRouter = Router();
 
 matchesRouter.get('/', matchesController.getAll);
-matchesRouter.post('/', tokenValidation, matchesController.newMatch);
+matchesRouter.post('/', matchtokenValidation, matchesController.newMatch);
+matchesRouter.patch('/:id/finish', matchesController.updateMatch);
 
 export default matchesRouter;

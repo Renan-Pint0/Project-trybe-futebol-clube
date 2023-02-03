@@ -9,10 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      teamName: {
+      team_name: {
         allowNull: false,
         type: Sequelize.STRING,
-        field: 'team_name',
       }
     })
   },

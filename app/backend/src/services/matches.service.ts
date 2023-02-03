@@ -15,14 +15,20 @@ const getAll = async (inProgress?: string) => {
 };
 
 const newMatch = async (body: iMatches): Promise<iMatches> => {
-  const match = await Matches.create({
-    homeTeamId: body.homeTeamId,
-    homeTeamGoals: body.homeTeamGoals,
-    awayTeamId: body.awayTeamId,
-    awayTeamGoals: body.awayTeamGoals,
-    inProgesse: true,
-  });
+  const match = await Matches.create({ ...body, inProgess: true });
   return match;
 };
 
-export default { getAll, newMatch };
+const updateMatch = async (id: number): Promise<iMatches> => {
+  const match = await Matches.findByPk(id);
+  await match?.update({ inProgress: false });
+  await match?.save();
+  return match as iMatches;
+};
+
+const getByid = async (id: number): Promise<iMatches> => {
+  const result = await Matches.findByPk(id);
+  return result as iMatches;
+};
+
+export default { getAll, newMatch, updateMatch, getByid };

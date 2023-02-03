@@ -21,11 +21,19 @@ const newMatch = async (req: Request, res: Response) => {
   res.status(201).json(result);
 };
 
-const updateMatch = async (req: Request, res: Response) => {
+const finishMatch = async (req: Request, res: Response) => {
   const { id } = req.params;
   const idResult = Number(id);
-  await matchesService.updateMatch(idResult);
+  await matchesService.finishMatch(idResult);
   return res.status(200).json({ message: 'Finished' });
 };
 
-export default { getAll, newMatch, updateMatch };
+const updateMatch = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const reqBody = req.body;
+  const idResult = Number(id);
+  await matchesService.updateMatch(idResult, reqBody);
+  return res.status(200).json({ message: 'Match updated' });
+};
+
+export default { getAll, newMatch, updateMatch, finishMatch };

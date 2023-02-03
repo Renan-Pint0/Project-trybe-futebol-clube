@@ -1,20 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 
-const secret = process.env.JWT_SECRET;
+const secret = process.env.JWT_SECRET || 'secret';
 
 const matchtokenValidation = (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
-  const { authorization: token } = req.headers;
+  const token = req.header('Authorization');
   if (!token) {
     return res.status(401).json({ message: 'Token not found' });
   }
   try {
-    const user = jwt.verify(token, secret as string);
-    req.body.user = user;
+    const decoded = jwt.verify(token, secret);
+    req.body.decoded = decoded;
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Token must be a valid token' });

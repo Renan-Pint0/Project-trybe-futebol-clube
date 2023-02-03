@@ -19,16 +19,22 @@ const newMatch = async (body: iMatches): Promise<iMatches> => {
   return match;
 };
 
-const updateMatch = async (id: number): Promise<iMatches> => {
-  const match = await Matches.findByPk(id);
-  await match?.update({ inProgress: false });
-  await match?.save();
-  return match as iMatches;
-};
-
 const getByid = async (id: number): Promise<iMatches> => {
   const result = await Matches.findByPk(id);
   return result as iMatches;
 };
 
-export default { getAll, newMatch, updateMatch, getByid };
+const finishMatch = async (id: number): Promise<iMatches> => {
+  const match = await Matches.findByPk(id);
+  await match?.update({ inProgress: false });
+  await match?.save();
+  return match as iMatches;
+};
+const updateMatch = async (id: number, body: iMatches): Promise<iMatches> => {
+  const match = await Matches.findByPk(id);
+  match?.set(body);
+  await match?.save();
+  return match as iMatches;
+};
+
+export default { getAll, newMatch, updateMatch, getByid, finishMatch };

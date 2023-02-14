@@ -26,11 +26,12 @@ const getByEmail = async (req: Request, res: Response) => {
 };
 
 const verifyToken = async (req: Request, res: Response) => {
-  const { decoded: { data: { role } } } = req.body;
-  return res.status(200).json({ role });
-  // const user = await userService.getById(Number(id));
-  // if (!user) return res.status(404).json({ message: 'User not found' });
-  // return res.status(200).json({ role: user.role });
+  // const { decoded: { data: { role } } } = req.body;
+  // return res.status(200).json({ role });
+  const { id } = req.body.user;
+  const user = await userService.getById(Number(id));
+  if (!user) return res.status(404).json({ message: 'User not found' });
+  return res.status(200).json({ role: user.role });
 };
 
 export default { getByEmail, verifyToken };

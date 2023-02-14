@@ -9,12 +9,14 @@ const matchtokenValidation = (
   next: NextFunction,
 ) => {
   const token = req.header('Authorization');
-  if (!token) { return res.status(401).json({ message: 'Token not found' }); }
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
   try {
-    const decoded = jwt.verify(token, secret);
-    req.body.decoded = decoded;
+    const payload = jwt.verify(token, secret as string);
+    req.body.user = payload;
     next();
-  } catch (error) {
+  } catch (e) {
     return res.status(401).json({ message: 'Token must be a valid token' });
   }
 };

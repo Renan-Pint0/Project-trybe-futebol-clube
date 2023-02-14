@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 
-const secret = process.env.JWT_SECRET || 'secret';
+const secret = process.env.JWT_SECRET;
 
 const userValidation = (
   req: Request,
@@ -26,8 +26,8 @@ const tokenValidation = (
     return res.status(401).json({ message: 'Token not found' });
   }
   try {
-    const decoded = jwt.verify(token, secret);
-    req.body.decoded = decoded;
+    const payload = jwt.verify(token, secret as string);
+    req.body.user = payload;
     next();
   } catch (e) {
     return res.status(401).json({ message: 'Expired or invalid token' });

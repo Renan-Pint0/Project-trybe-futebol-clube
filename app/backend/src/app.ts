@@ -10,17 +10,17 @@ class App {
     this.app = express();
 
     this.config();
-    this.routes();
+    // this.routes();
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
   }
 
-  private routes(): void {
-    this.app.use('/login', userRouter);
-    this.app.use('/teams', teamRouter);
-    this.app.use('/matches', matchesRouter);
-  }
+  // private routes(): void {
+  //   this.app.use('/login', userRouter);
+  //   this.app.use('/teams', teamRouter);
+  //   this.app.use('/matches', matchesRouter);
+  // }
 
   private config():void {
     const accessControl: express.RequestHandler = (_req, res, next) => {
@@ -32,6 +32,9 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
+    this.app.use('/login', userRouter);
+    this.app.use('/teams', teamRouter);
+    this.app.use('/matches', matchesRouter);
   }
 
   public start(PORT: string | number):void {

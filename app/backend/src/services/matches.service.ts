@@ -14,8 +14,29 @@ const getAll = async (inProgress?: string) => {
   return result.filter((res) => res.inProgress.toString() === inProgress);
 };
 
-const newMatch = async (body: iMatches): Promise<iMatches> => {
-  const match = await Matches.create({ ...body, inProgess: true });
+const newMatch = async (matchData: iMatches) => {
+  // const home = await Matches.findByPk(matchData.homeTeamId);
+  // const away = await Matches.findByPk(matchData.awayTeamId);
+  // if (!home || !away) {
+  //   return {
+  //     status: 'not found',
+  //     message: 'There is no team with such id!',
+  //   };
+  // }
+  // if (matchData.homeTeamId === matchData.awayTeamId) {
+  //   return {
+  //     status: 'equal teams',
+  //     message: 'It is not possible to create a match with two equal teams',
+  //   };
+  // }
+  const match = await Matches.create({
+    homeTeamId: matchData.homeTeamId,
+    homeTeamGoals: matchData.homeTeamGoals,
+    awayTeamId: matchData.awayTeamId,
+    awayTeamGoals: matchData.awayTeamGoals,
+    inProgress: true,
+  });
+  console.log(match);
   return match;
 };
 

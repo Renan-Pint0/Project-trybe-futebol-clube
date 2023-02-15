@@ -16,11 +16,16 @@ interface iTeams {
 
 interface iMatches {
   id?: number;
-  homeTeamId?: number;
-  homeTeamGoals?: number;
-  awayTeamId?: number;
-  awayTeamGoals?: number;
-  inProgress?: boolean;
+  homeTeamId: number;
+  homeTeamGoals: number;
+  awayTeamId: number;
+  awayTeamGoals: number;
+  inProgress: boolean;
 }
 
-export { iLogin, iUser, iTeams, iMatches };
+interface iCreateMatch extends iMatches {
+  status?: string,
+  message?: string
+}
+
+export { iLogin, iUser, iTeams, iMatches, iCreateMatch };
